@@ -34,4 +34,24 @@ Output could contain various numbers of messages in this format: `process {proce
 The important thing is that numbers of counter value are in sequence. This implies that processes were synchronized before accessing critical section.
 The script spawns 10 threads by default, but you can play around with this variable by changing the value of `NUM_THREADS`
 
-## Why does this project work
+## How does this algorithm work
+At first the algorithm initializes helper arrays - `flag` and `number`. These arrays are of length `NUM_THREADS` and are initialized to default values (flag is array of boolean `False` values and number is array of zeros).
+
+To enter the critical section using the Bakery Algorithm, a process starts by setting its `flag[tid]` variable to `True` to signal its intent. Then, it receives a unique number that corresponds to max value in the `number` array. The process then sets its `flag` variable to `False`, indicating it now has an unique number assigned to it.
+
+This part of the algorithm is critical and can be confusing. Essentially, the first three lines are a small critical section that prevents other processes from checking the process's old, obsolete number value while it's being modified. To ensure this, the for loop first checks that all other processes have their `flag` variable set to `False`.
+
+The algorithm then proceeds to check the ticket values of each process, allowing the process with the lowest number to enter the critical section. When a process exits the critical section, it resets its value in `number` array to zero. This allows next process to enter critical section.
+
+## How does this algorithm ensure correctness of parallel program
+Correctness of a parallel program depends on meeting several conditions, including:
+1. Mutual Exclusion: Only one process or thread can access a shared resource or critical section at a time.
+2. Deadlock Freedom: The single process must not block other processes from accessing a shared resource or critical section.
+3. Starvation Freedom: The decision whether the process should enter critical section should be made in finite time.
+4. Unbiased: Processes have no assumptions about mutual timing when entering the critical section.
+
+This implementation ensures aforementioned conditions in following ways: 
+1. As explained previously, processes are assigned unique number and only process with lowest number can access critical section.
+2. Each process yields execution to process with next lowest number immediately after exiting critical section.
+3. The decision whether the process should enter critical section is made based on boolean value read from `flag` array. Array can be accessed in constant time `(O(1))` - this operation will be completed in finite time. 
+4. The algorithm makes no assumptions about mutual timing of processes. Only process with lowest number can access critical section.
