@@ -9,29 +9,28 @@ __license__ = "MIT"
 
 from fei.ppds import Thread
 
-DEFAULT_NUM_RUNS = 10
 NUM_THREADS = 10
 
-flag = [False] * (DEFAULT_NUM_RUNS)
-number = [0] * (DEFAULT_NUM_RUNS)
+flag = [False] * (NUM_THREADS)
+number = [0] * (NUM_THREADS)
 value: int = 0  # global counter
 
 
-def process(tid: int, num_runs: int):
+def process(tid: int, num_threads: int):
     """
     Simulates a process.
 
     :param tid: thread id
-    :param num_runs: number of executions of the critical section
+    :param num_threads: number of executions of the critical section (number of threads)
     """
     global value
     flag[tid] = True
     number[tid] = max(number) + 1
     flag[tid] = False
 
-    for j in range(num_runs):
+    for j in range(num_threads):
         while flag[j]:
-            print(f'process {tid} assigning number')
+            print(f'process {tid} waiting')
             pass
         while (number[j] < number[tid] or (number[j] == number[tid] and j < tid)) and number[j] != 0:
             print(f'process {tid} waiting')
@@ -45,6 +44,5 @@ def process(tid: int, num_runs: int):
 
 
 if __name__ == '__main__':
-    threads = [Thread(process, i, DEFAULT_NUM_RUNS)
-               for i in range(NUM_THREADS)]
+    threads = [Thread(process, i, NUM_THREADS) for i in range(NUM_THREADS)]
     [t.join() for t in threads]
