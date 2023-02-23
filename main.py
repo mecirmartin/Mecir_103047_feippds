@@ -17,13 +17,12 @@ number = [0] * (DEFAULT_NUM_RUNS)
 value: int = 0  # global counter
 
 
-def process(tid: int, num_runs: int, msg: str):
+def process(tid: int, num_runs: int):
     """
     Simulates a process.
 
     :param tid: thread id
     :param num_runs: number of executions of the critical section
-    :param msg: message passed to 
     """
     global value
     flag[tid] = True
@@ -40,11 +39,12 @@ def process(tid: int, num_runs: int, msg: str):
 
     # critical section
     value += 1
-    print(msg, f'counter value: {value}')
+    print(f"thread number: {tid}", f'counter value: {value}')
     number[tid] = 0
+    # end of critical section
 
 
 if __name__ == '__main__':
-    threads = [Thread(process, i, DEFAULT_NUM_RUNS,
-                      f"thread number: {i + 1}") for i in range(NUM_THREADS)]
+    threads = [Thread(process, i, DEFAULT_NUM_RUNS)
+               for i in range(NUM_THREADS)]
     [t.join() for t in threads]
