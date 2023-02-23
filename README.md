@@ -32,7 +32,7 @@ thread number: 9 counter value: 10
 
 Output could contain various numbers of messages in this format: `process {processId} waiting`. This message simply means that process is paused and waiting for synchronization.
 The important thing is that numbers of counter value are in sequence. This implies that processes were synchronized before accessing critical section.
-The script spawns 10 threads by default, but you can play around with this variable by changing the value of `NUM_THREADS`
+The script spawns 10 threads by default, but you can play around with this variable by changing the value of `NUM_THREADS`.
 
 ## How does this algorithm work
 At first the algorithm initializes helper arrays - `flag` and `number`. These arrays are of length `NUM_THREADS` and are initialized to default values (flag is array of boolean `False` values and number is array of zeros).
@@ -41,7 +41,7 @@ To enter the critical section using the Bakery Algorithm, a process starts by se
 
 This part of the algorithm is critical and can be confusing. Essentially, the first three lines are a small critical section that prevents other processes from checking the process's old, obsolete number value while it's being modified. To ensure this, the for loop first checks that all other processes have their `flag` variable set to `False`.
 
-The algorithm then proceeds to check the ticket values of each process, allowing the process with the lowest number to enter the critical section. When a process exits the critical section, it resets its value in `number` array to zero. This allows next process to enter critical section.
+The algorithm then proceeds to check the number values of each process, allowing the process with the lowest number to enter the critical section. When a process exits the critical section, it resets its value in `number` array to zero. This allows next process to enter critical section.
 
 ## How does this algorithm ensure correctness of parallel program
 Correctness of a parallel program depends on meeting several conditions, including:
