@@ -52,9 +52,8 @@ CUSTOMER: 3 gets haircut
 BARBER: cuts hair
 ```
 
-Output could contain various numbers of messages in this format: `process {processId} waiting`. This message simply means that process is paused and waiting for synchronization.
-The important thing is that numbers of counter value are in sequence. This implies that processes were synchronized before accessing critical section.
-The script spawns 10 threads by default, but you can play around with this variable by changing the value of `NUM_THREADS`.
+Output could contain various numbers of messages in this format. However the number of processes inside the room should not exceed the `SIZE_OF_WAITING_ROOM`
+The script spawns 5 processes by default, but you can play around with this variable by changing the value of `NUM_THREADS`.
 
 ## How does this program work
 This program represents the solution for barber shop using multiple processes. To ensure correct execution of program processes need to comply to following rules:
