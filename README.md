@@ -25,30 +25,29 @@ CUSTOMER: 3 waiting room is full
 CUSTOMER: 4 waiting room is full
 CUSTOMER: 1 gets haircut
 BARBER: cuts hair
+CUSTOMER: 3 waiting room is full
 CUSTOMER: 4 waiting room is full
-CUSTOMER: 3 waiting room is full
 CUSTOMER: 1 hair is growing
+CUSTOMER: 2 gets haircut
+BARBER: cuts hair
 CUSTOMER: 4 is in the room
-BARBER: cuts hair
+CUSTOMER: 3 waiting room is full
+CUSTOMER: 3 waiting room is full
+CUSTOMER: 1 waiting room is full
+CUSTOMER: 2 hair is growing
 CUSTOMER: 0 gets haircut
-CUSTOMER: 3 waiting room is full
-CUSTOMER: 3 waiting room is full
-CUSTOMER: 0 hair is growing
-CUSTOMER: 4 gets haircut
-BARBER: cuts hair
-CUSTOMER: 1 is in the room
-CUSTOMER: 3 waiting room is full
-CUSTOMER: 3 waiting room is full
-CUSTOMER: 0 waiting room is full
-CUSTOMER: 4 hair is growing
-CUSTOMER: 1 gets haircut
 BARBER: cuts hair
 CUSTOMER: 3 is in the room
-CUSTOMER: 0 waiting room is full
-CUSTOMER: 4 waiting room is full
-CUSTOMER: 1 hair is growing
-CUSTOMER: 0 is in the room
+CUSTOMER: 1 waiting room is full
+CUSTOMER: 2 waiting room is full
+CUSTOMER: 0 hair is growing
 CUSTOMER: 3 gets haircut
+BARBER: cuts hair
+CUSTOMER: 1 is in the room
+CUSTOMER: 2 waiting room is full
+CUSTOMER: 0 waiting room is full
+CUSTOMER: 3 hair is growing
+CUSTOMER: 1 gets haircut
 BARBER: cuts hair
 ```
 
