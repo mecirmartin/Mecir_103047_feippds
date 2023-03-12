@@ -1,14 +1,8 @@
-# Barber shop problem
-This repo is my implementation of second assignment for PPDS course at FEI STU.
+# Dining savages problem
+This repo is my implementation of fourth assignment for PPDS course at FEI STU.
 
-## What is Barber shop problem
-There is a small town with only one barber shop. The barber in the shop has a strict set of rules that he follows:
-
-1. If there is no one in the shop, the barber goes to sleep.
-2. If a customer enters the shop and barber is sleeping, barber will wake up and customer can sit down and get a hair cut from the barber.
-3. If a customer enters the shop and barber is currently working, customer can sit in waiting room and wait for his haircut.
-4. If all seats in waiting room are occupied, the customer has to return after certain period of time and check if all seats are still occupied.
-5. After haircut, customer lets his hair grow and then visits barber shop again.
+## What is Feasting savages problem
+Community of savages meets every night for a dinner. Savages are eating in companion so everyone has to wait for all savages to arrive first. The last savage to arrive gives a signal and all savages can eat. There is a large pot that can hold M servings of food. When a member of the community wants to eat, they serve themselves from the pot, unless it is empty. If the pot is empty, they wake up the cook and wait until the pot is refilled. Then they can go ahead and take a portion of a meal. Every savage takes one serving. This happens every night, so program has to run indefinitely.
 
 ## How to use this project
 This project consists of single python script `main.py`. To run this program, you need some prerequisites: 
@@ -18,46 +12,73 @@ This project consists of single python script `main.py`. To run this program, yo
 After fulfilling these requirements, you should be able to run this script with command `python main.py` (assuming your shell's working directory is the directory where script is located).
 After running the command, the output should be in this format: 
 ```
-CUSTOMER: 0 is in the room
-CUSTOMER: 1 is in the room
-CUSTOMER: 2 is in the room
-CUSTOMER: 3 waiting room is full
-CUSTOMER: 4 waiting room is full
-CUSTOMER: 1 gets haircut
-BARBER: cuts hair
-CUSTOMER: 3 waiting room is full
-CUSTOMER: 4 waiting room is full
-CUSTOMER: 1 hair is growing
-CUSTOMER: 2 gets haircut
-BARBER: cuts hair
-CUSTOMER: 4 is in the room
-CUSTOMER: 3 waiting room is full
-CUSTOMER: 3 waiting room is full
-CUSTOMER: 1 waiting room is full
-CUSTOMER: 2 hair is growing
-CUSTOMER: 0 gets haircut
-BARBER: cuts hair
-CUSTOMER: 3 is in the room
-CUSTOMER: 1 waiting room is full
-CUSTOMER: 2 waiting room is full
-CUSTOMER: 0 hair is growing
-CUSTOMER: 3 gets haircut
-BARBER: cuts hair
-CUSTOMER: 1 is in the room
-CUSTOMER: 2 waiting room is full
-CUSTOMER: 0 waiting room is full
-CUSTOMER: 3 hair is growing
-CUSTOMER: 1 gets haircut
-BARBER: cuts hair
+SAVAGE: 0 waiting on barrier
+SAVAGE: 1 waiting on barrier
+SAVAGE: 2 waiting on barrier
+SAVAGE: 3 waiting on barrier
+SAVAGE: 4 arrived, barrier unlocking
+SAVAGE: 4 waiting on barrier
+SAVAGE: 4 took a portion
+SAVAGE: 2 took a portion
+SAVAGE: 0 took a portion
+SAVAGE: 3 went to take a portion, but pot is empty, waiting for refill
+CHEF: food is cooking
+SAVAGE: 3 took a portion
+SAVAGE: 1 took a portion
+SAVAGE: 1 waiting on barrier
+SAVAGE: 4 waiting on barrier
+SAVAGE: 0 waiting on barrier
+SAVAGE: 3 waiting on barrier
+SAVAGE: 2 arrived, barrier unlocking
+SAVAGE: 2 waiting on barrier
+SAVAGE: 2 took a portion
+SAVAGE: 4 went to take a portion, but pot is empty, waiting for refill
+CHEF: food is cooking
+SAVAGE: 4 took a portion
+SAVAGE: 0 took a portion
+SAVAGE: 3 took a portion
+SAVAGE: 1 went to take a portion, but pot is empty, waiting for refill
+CHEF: food is cooking
+SAVAGE: 1 took a portion
+SAVAGE: 1 waiting on barrier
+SAVAGE: 4 waiting on barrier
+SAVAGE: 3 waiting on barrier
+SAVAGE: 2 waiting on barrier
+SAVAGE: 0 arrived, barrier unlocking
+SAVAGE: 0 waiting on barrier
+SAVAGE: 0 took a portion
+SAVAGE: 1 took a portion
+SAVAGE: 3 went to take a portion, but pot is empty, waiting for refill
+CHEF: food is cooking
+SAVAGE: 3 took a portion
+SAVAGE: 4 took a portion
+SAVAGE: 2 took a portion
+SAVAGE: 2 waiting on barrier
+SAVAGE: 0 waiting on barrier
+SAVAGE: 3 waiting on barrier
+SAVAGE: 1 waiting on barrier
+SAVAGE: 4 arrived, barrier unlocking
+SAVAGE: 4 waiting on barrier
+SAVAGE: 4 went to take a portion, but pot is empty, waiting for refill
+CHEF: food is cooking
+SAVAGE: 4 took a portion
+SAVAGE: 3 took a portion
+SAVAGE: 0 took a portion
+SAVAGE: 2 went to take a portion, but pot is empty, waiting for refill
+CHEF: food is cooking
+SAVAGE: 2 took a portion
+SAVAGE: 1 took a portion
+SAVAGE: 1 waiting on barrier
+SAVAGE: 0 waiting on barrier
+SAVAGE: 3 waiting on barrier
+SAVAGE: 4 waiting on barrier
+SAVAGE: 2 arrived, barrier unlocking
+SAVAGE: 2 waiting on barrier
+SAVAGE: 2 took a portion
+SAVAGE: 4 went to take a portion, but pot is empty, waiting for refill
 ```
 
-Output could contain various numbers of messages in this format. However the number of processes inside the room should not exceed the `SIZE_OF_WAITING_ROOM`
-The script spawns 5 processes by default, but you can play around with this variable by changing the value of `NUM_THREADS`.
+The script runs indefinitely. The number of servings in the pot is equals `SIZE_OF_COOKING_POT` (default is 3). 
+The script spawns 5 processes by default, but you can play around with this variable by changing the value of `NUM_OF_SAVAGES`.
 
 ## How does this program work
-This program represents the solution for barber shop using multiple processes. To ensure correct execution of program processes need to comply to following rules:
-1. The number of processes that can enter into critical section (waiting room) has to be limited by constant `SIZE_OF_WAITING_ROOM` (by default set to `3`). To ensure that number of processes inside critical section won't exceed `SIZE_OF_WAITING_ROOM`, synchronization pattern **Multiplex** is used.
-2. The integrity of counter is protected by mutex using `shared.mutex.lock()`/`shared.mutex.unlock()`
-3. Synchronization pattern **Rendezvous** is used to ensure that only one customer process can enter `get_haircut`, only when barber process is not doing any work
-4. Synchronization pattern **Rendezvous** is used after functions `get_haircut` and `cut_hair` are finished to reestablish integrity again.
-
