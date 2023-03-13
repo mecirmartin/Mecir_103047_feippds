@@ -90,7 +90,7 @@ Ultimately, the choice between the two solutions depends on the specific require
 
 ## Compare solutions using experiment
 In this experiment i've compared my solution with only left-handed philosopher and [solution using waiter.](https://github.com/tj314/ppds-2023-cvicenia/blob/master/seminar4/04_philosophers.py)
-I've compared these two solution on `5`, `10` and `15` runs of loop. You can see that using my approach each iteration of loop either philosopher with id `0` or philosopher with id `4` is starving as described in preceding paragraph.
+I've compared these two solution on `5`, `10` and `15` runs of loop. I ran and compared two solutions with aforementioned parameters, measured time that took each script to finish and then processed results into a table.  You can see that using my approach each iteration of loop either philosopher with id `0` or philosopher with id `4` is starving as described in preceding paragraph.
 The time difference only increases with higher number of loops (said processes are becoming increasingly starved). In conclusion, the solution using waiter behaves better for this use case. My solution could be improved by experimenting with distribution of left and right-handed philosophers in system.
 
 | NUM_RUNS | left-handed |   waiter  |
