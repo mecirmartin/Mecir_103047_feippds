@@ -1,7 +1,7 @@
 # Dining savages problem
 This repo is my implementation of fourth assignment for PPDS course at FEI STU.
 
-## What is Feasting savages problem
+## What is Dining savages problem
 Community of savages meets every night for a dinner. Savages are eating in companion so everyone has to wait for all savages to arrive first. The last savage to arrive gives a signal and all savages can eat. There is a large pot that can hold M servings of food. When a member of the community wants to eat, they serve themselves from the pot, unless it is empty. If the pot is empty, they wake up the cook and wait until the pot is refilled. Then they can go ahead and take a portion of a meal. Every savage takes one serving. This happens every night, so program has to run indefinitely.
 
 ## How to use this project
