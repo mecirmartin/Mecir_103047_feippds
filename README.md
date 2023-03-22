@@ -127,3 +127,11 @@ if shared.barrier_count == 0:
 shared.barrier_mutex.unlock()
 shared.turnstile2.wait()
 shared.turnstile2.signal()
+
+The script also contains function `cook`. This function represents single cook that cooks meals. This is represented by single process in while loop. This process is synchronized with `feast` function using synchronization pattern rendezvous. The process waits for `shared.empty_pot.wait()`, then cooks food and signals that it is done cooking with `shared.full_pot.signal()`
+```
+while True:
+    shared.empty_pot.wait()
+    cook_food(shared)
+    shared.full_pot.signal()
+```
