@@ -10,6 +10,9 @@ __licence__ = "MIT"
 from numba import cuda
 import matplotlib . pyplot as plt
 import numpy as np
+import time
+
+IMAGE_NAME = 'images-18'
 
 @cuda.jit
 def transform_to_grayscale_cuda(in_data, out_data):
@@ -40,19 +43,29 @@ def transform_to_grayscale(in_data):
     """
     return np.dot(in_data[..., :3], [0.299, 0.587, 0.114])
 
+
+
 def main():
     """Run main."""
-    pixels = plt.imread('face.jpg').copy()
+    pixels = plt.imread(f'./images/{IMAGE_NAME}.jpeg').copy()
     height, width, _ = pixels.shape
     out_data_cuda = np.zeros((height, width)).copy()
     # This works for 256x256 pixel images
     tpb = (16, 16)
     bpg = (16, 16)
+    
+    gpu_start = time.time()
     transform_to_grayscale_cuda[bpg, tpb](pixels, out_data_cuda)
+    gpu_duration = time.time() - gpu_start
 
+    cpu_start = time.time()
     out_data = transform_to_grayscale(pixels)
-    plt.imsave('face_grayscale.jpg', out_data ,format='jpg', cmap=plt.get_cmap('gray'))
-    plt.imsave('face_grayscale_cuda.jpg', out_data_cuda ,format='jpg', cmap=plt.get_cmap('gray'))
+    cpu_duration = time.time() - cpu_start
+
+    print("CPU: ", cpu_duration)
+    print("GPU: ", gpu_duration)
+    plt.imsave(f'{IMAGE_NAME}-grayscale-cpu.jpg', out_data ,format='jpg', cmap=plt.get_cmap('gray'))
+    plt.imsave(f'{IMAGE_NAME}-grayscale-gpu.jpg', out_data_cuda ,format='jpg', cmap=plt.get_cmap('gray'))
 
 if __name__ == "__main__":
     main()
